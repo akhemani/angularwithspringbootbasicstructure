@@ -5,6 +5,7 @@ import { DepartmentRoutingModule } from './department-routing.module';
 import { DepartmentListComponent } from './department-list/department-list.component';
 import { DepartmentHomeComponent } from './department-home/department-home.component';
 import { DepartmentAddComponent } from './department-add/department-add.component';
+import { PrimeNgModule } from '../prime-ng.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DepartmentAddComponent } from './department-add/department-add.componen
   ],
   imports: [
     CommonModule,
-    DepartmentRoutingModule
+    DepartmentRoutingModule,
+    PrimeNgModule
   ]
 })
 export class DepartmentModule { }

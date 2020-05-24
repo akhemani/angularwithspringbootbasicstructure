@@ -24,4 +24,16 @@ export class EmployeeService {
     saveEmployee(employee: Employee): Observable<Employee> {
         return this.http.post<Employee>(this.url, employee);
     }
+
+    updateEmployee(employee: Employee): Observable<Employee> {
+        return this.http.put<Employee>(this.url, employee);
+    }
+
+    deleteEmployee(id) : Observable<Employee> {
+        return this.http.delete<any>(this.url + '/byId/' + id);
+    }
+
+    searchEmployee(searchedText) : Observable<Page<Employee>> {
+        return this.http.get<Page<Employee>>(this.url + '/search/' + searchedText);
+    }
 }

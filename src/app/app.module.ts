@@ -16,6 +16,7 @@ import { EmployeeModModule } from './employee-mod/employee-mod.module';
 import { EmployeeService } from './services/employee.service';
 import { DepartmentService } from './services/department.service';
 import { DepartmentModule } from './department-mod/department.module';
+import { MenuService } from './services/menu.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { DepartmentModule } from './department-mod/department.module';
     LoginService,
     AuthGuard,
     EmployeeService,
-    DepartmentService
+    DepartmentService,
+    MenuService
   ],
   bootstrap: [AppComponent]
 })

@@ -21,4 +21,16 @@ export class DepartmentService {
         return this.http.get<Department>(this.url + '/byId/' + id);
     }
 
+    saveDepartment(department: Department) : Observable<Department> {
+        return this.http.post<Department>(this.url, department);
+    }
+
+    updateDepartment(department: Department) : Observable<Department> {
+        return this.http.put<Department>(this.url, department);
+    }
+
+    deleteDepartment(id) : Observable<Department> {
+        return this.http.delete<any>(this.url + '/byId/' + id);
+    }
+
 }

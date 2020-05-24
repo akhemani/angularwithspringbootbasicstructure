@@ -67,4 +67,33 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
+  deleteEmployee(id) {
+    this.employeeService.deleteEmployee(id).subscribe(response => {
+      const resObj: any = response;
+      if (resObj.resultCode === 'SUCCESS') {
+        this.getAllEmployees();
+      }
+    }, error => {
+      console.log('error');
+      console.log(error);
+    });
+  }
+
+  search(searchedText) {
+    if (searchedText.length > 0) {
+      this.employeeService.searchEmployee(searchedText).subscribe(response => {
+        const resObj: any = response;
+        if (resObj.resultCode === 'SUCCESS') {
+          this.employees = resObj.data.content;
+          this.totalRecords = resObj.data.totalElements;
+        }
+      }, error => {
+        console.log('error');
+        console.log(error);
+      });
+    } else {
+      this.getAllEmployees();
+    }
+  }
+
 }

@@ -1,8 +1,14 @@
 import { Injectable } from "@angular/core";
 import { LoginDetails } from '../models/login.model';
+import { MenuService } from './menu.service';
 
 @Injectable()
 export class LoginService {
+
+    constructor(
+        private menuService: MenuService
+    ) { }
+
     login(loginDetails: LoginDetails): boolean {
 
         if (
@@ -17,6 +23,11 @@ export class LoginService {
 
     setData(data) {
         localStorage.setItem('type', data);
+
+        if (data === 3) {
+            this.menuService.setMenuItemList([1,2,3,5,6]);
+        }
+
     }
 
     isLoggedIn(): boolean {
