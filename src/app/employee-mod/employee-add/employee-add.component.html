@@ -1,0 +1,35 @@
+<p style="text-align: center;">Employee Form</p>
+
+<form [formGroup]="employeeForm" (submit)="addEmployee()" style="padding-left: 40%;">
+    <div style="padding-top: 3%;">
+        Employee Name *: <input type="text" class="form-control" placeholder="john" formControlName="name">
+        <div>
+            <span *ngIf="!employeeForm.controls['name'].valid && employeeForm.controls['name'].dirty">Employee name is required</span>
+        </div>
+    </div>
+    <div style="padding-top: 3%;">
+        Employee Department *: <p-dropdown [options]="departments" formControlName="department" (onChange)="getDepartmentById()"></p-dropdown>
+                                <!-- <input type="text" class="form-control" placeholder="Java" formControlName="department"> -->
+    </div>
+    <div style="padding-top: 3%;">
+        Employee Age *: <input type="number" class="form-control" placeholder="30" formControlName="age">
+    </div>
+    <div style="padding-top: 3%;">
+        Employee Address *: <input type="text" class="form-control" placeholder="Flat no 4" formControlName="address">
+    </div>
+    <div style="padding-top: 3%;">
+        Employee City *: <input type="text" class="form-control" placeholder="city name" formControlName="city">
+    </div>
+    <div style="padding-top: 3%;">
+        Employee State *: <input type="text" class="form-control" placeholder="state name" formControlName="state">
+    </div>
+    <div style="padding-top: 3%; padding-bottom: 3%;">
+        Date of Joining *: <input type="date" class="form-control" formControlName="dateOfJoining">
+    </div>
+
+    <button *ngIf="!isEdit" pButton type="submit" label="Add" style="margin: 1%;" [disabled]="employeeForm.invalid || employeeForm.get('department').value === 0"></button>
+    <button *ngIf="isEdit" pButton type="submit" label="Update" style="margin: 1%;" [disabled]="employeeForm.invalid || employeeForm.get('department').value === 0"></button>
+    <button pButton type="reset" label="Reset" style="margin: 1%;" (click)="employeeForm.reset()"></button>
+    <button pButton type="button" label="Cancel" style="margin: 1%;" (click)="cancel()"></button>
+    
+</form>

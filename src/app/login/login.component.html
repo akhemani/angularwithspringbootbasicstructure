@@ -1,0 +1,41 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()" style="padding-left: 35%;padding-top: 7%;">
+
+    <ng-container *ngIf="alreadyLoggedIn(); else showLoginForm">
+        <div>
+            <p>
+                Already logged in .........
+            </p>
+        </div>
+    </ng-container>
+    <ng-template #showLoginForm>
+        <div style="padding-bottom: 4%;">
+            Username *: <input type="text" pInputText placeholder="johndoe" formControlName="username" class="form-control">
+            <div style="padding-left: 7%;">
+                <span class="ui-message ui-messages-error"
+                    *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].dirty" style="color: red;">Username is required</span>
+            </div>
+        </div>
+    
+        <div style="padding-bottom: 4%;">
+            Password *: <input type="password" pPassword placeholder="******" formControlName="password" required>
+            <div style="padding-left: 7%;">
+                <span class="ui-message ui-messages-error"
+                    *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].dirty" style="color: red;">Username is required</span>
+            </div>
+        </div>
+    
+        <div style="padding-bottom: 4%;">
+            Type *: <p-dropdown [options]="types" formControlName="type"></p-dropdown>
+            <div style="padding-left: 5%;">
+                <span class="ui-message ui-messages-error"
+                    *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].dirty" style="color: red;">Username is required</span>
+            </div>
+        </div>
+    
+        <button pButton type="submit" label="Login" class="ui-button-rounded" [disabled]="loginForm.invalid" ></button>
+        <div>
+            {{message}}
+        </div>
+    </ng-template>
+    
+</form>

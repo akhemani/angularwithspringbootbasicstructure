@@ -1,0 +1,56 @@
+<!-- <p>employee-list works!</p> -->
+<p></p><p></p>
+
+<div>
+    <p-button label="Add Employee" (click)="addEmployee()" ></p-button>
+</div>
+
+<p></p>
+
+<p-table [value]="employees" [columns]="columns" [paginator]="true" 
+    [rows]="4" sortField="brand" [loading]="loading"
+    (onLazyLoad)="loadLazyEmployeeTableData($event)" [totalRecords]="totalRecords">
+<!-- [lazy]="true" -->
+    <ng-template pTemplate="caption">
+        All Employee
+    </ng-template>
+    <ng-template pTemplate="header" let-cols>
+        <tr>
+            <th  *ngFor="let column of cols" [pSortableColumn]="column.field">
+                {{column.header}}
+                <p-sortIcon [field]="column.field"></p-sortIcon>
+            </th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-emp>
+        <tr style="text-align: center;">
+            <td>{{emp.name}}</td>
+            <td>{{emp.department.name}}</td>
+            <td>{{emp.age}}</td>
+            <td>{{emp.address.address}}, {{emp.address.city}}</td>
+            <td>{{emp.dateOfJoining}}</td>
+            <td>
+                <a style="padding-right: 3%;" (click)="editEmployee(emp.id)"><i class="pi pi-pencil"></i></a>
+                <a><i class="pi pi-trash"></i></a>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+        <tr *ngIf="!loading" style="text-align: center;">
+            <td colspan="5">
+                No Data
+            </td>
+        </tr>
+    </ng-template> 
+    <!-- <ng-template pTemplate="footer">
+        <tr>
+            <td colspan="3">Totals</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </ng-template> -->
+    <ng-template pTemplate="summary">
+        There are total {{totalRecords}} records
+    </ng-template>
+</p-table>

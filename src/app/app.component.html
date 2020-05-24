@@ -1,0 +1,11 @@
+<div>
+  <a routerLink="home">Home..</a>
+  <!-- <a routerLink="admin">Admin..</a> -->
+  <a routerLink="user">User..</a>
+  <a routerLink="login">Login..</a>
+  <a *ngIf="enableAdminOptions()" routerLink="employee">Employee...</a>
+  <a *ngIf="enableAdminOptions()" routerLink="department">Department...</a>
+  <a routerLink="logout" style="padding-left: 84%;">Logout..</a>
+</div>
+
+<router-outlet></router-outlet>
