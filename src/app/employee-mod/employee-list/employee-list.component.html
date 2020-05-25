@@ -7,12 +7,17 @@
 
 <p></p>
 
-<p-table [value]="employees" [columns]="columns" [paginator]="true" 
-    [rows]="4" sortField="brand" [loading]="loading"
+<p-table #tt [value]="employees" [columns]="columns" [paginator]="true" 
+    [rows]="4" sortField="brand" [loading]="loading" [rowsPerPageOptions]="[5, 10, 25, 100]"
     (onLazyLoad)="loadLazyEmployeeTableData($event)" [totalRecords]="totalRecords">
 <!-- [lazy]="true" -->
     <ng-template pTemplate="caption">
         All Employee
+        <!-- <ng-template pTemplate="caption"> -->
+        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+        <!-- <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto"> -->
+        <input type="text" pInputText size="50" placeholder="Search" (input)="search($event.target.value)" style="width:auto">
+        <!-- </ng-template> -->
     </ng-template>
     <ng-template pTemplate="header" let-cols>
         <tr>
@@ -32,7 +37,7 @@
             <td>{{emp.dateOfJoining}}</td>
             <td>
                 <a style="padding-right: 3%;" (click)="editEmployee(emp.id)"><i class="pi pi-pencil"></i></a>
-                <a><i class="pi pi-trash"></i></a>
+                <a (click)="deleteEmployee(emp.id)"><i class="pi pi-trash"></i></a>
             </td>
         </tr>
     </ng-template>

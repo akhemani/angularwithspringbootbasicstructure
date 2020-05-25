@@ -1,1 +1,19 @@
-<p>department-add works!</p>
+
+<div style="padding-left: 36%; padding-top: 2%;">
+    <form [formGroup]="departmentForm" (submit)="addDepartment()">
+
+        <div>
+            Department Name : <input type="text" formControlName="name">
+        </div>
+
+        <div style="padding-top: 3%; padding-bottom: 3%;">
+            Floor Number : <input type="number" formControlName="floorNumber">
+        </div>
+        
+        <button pButton *ngIf="isEdit" label="Update" style="margin: 1%;" type="submit"></button>
+        <button pButton *ngIf="!isEdit" label="Save" style="margin: 1%;" type="submit"></button>
+        <button pButton label="Reset" style="margin: 1%;" type="reset" (click)="departmentForm.reset()"></button>
+        <button pButton label="Cancel" style="margin: 1%;" (click)="cancel()"></button>
+
+    </form>
+</div>

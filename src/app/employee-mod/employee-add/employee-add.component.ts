@@ -21,6 +21,8 @@ export class EmployeeAddComponent implements OnInit {
   department: Department;
   empId: Number;
   isEdit: boolean = false;
+  empSalary: Number;
+  empAddId: Number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,11 +30,9 @@ export class EmployeeAddComponent implements OnInit {
     private employeeService: EmployeeService,
     private router: Router,
     private route: ActivatedRoute
-  ) { console.log('asdf'); }
+  ) { }
 
   ngOnInit(): void {
-
-    console.log('asdf 2');
 
     this.route.queryParams.subscribe(params => {
       this.empId = params['id'] === 'undefined' ? 0 : params['id'];
@@ -79,6 +79,9 @@ export class EmployeeAddComponent implements OnInit {
         this.employeeForm.get('city').setValue(this.employee.address.city);
         this.employeeForm.get('state').setValue(this.employee.address.state);
         this.employeeForm.get('dateOfJoining').setValue(this.employee.dateOfJoining);
+        this.empSalary = this.employee.salary;
+        this.department = this.employee.department;
+        this.empAddId = this.employee.address.id;
       }
     });
   }
@@ -94,14 +97,31 @@ export class EmployeeAddComponent implements OnInit {
     this.employee.address.state = this.employeeForm.get('state').value;
     this.employee.dateOfJoining = this.employeeForm.get('dateOfJoining').value;
 
-    this.employeeService.saveEmployee(this.employee).subscribe(response => {
-      const resObj: any = response;
-      if (resObj.resultCode === 'SUCCESS') {
-        setTimeout(() => {this.router.navigate(['employee/employeeList']);}, 500);
-      }
-    }, error => {
+    if (this.isEdit) {
+      this.employee.id = this.empId;
+      this.employee.salary = this.empSalary;
+      this.employee.address.id = this.empAddId;
+      this.employeeService.updateEmployee(this.employee).subscribe(response => {
+        const resObj: any = response;
+        if (resObj.resultCode === 'SUCCESS') {
+          setTimeout(() => {this.router.navigate(['employee/employeeList']);}, 500);
+        }
+      }, error => {
+        console.log('error');
+        console.log(error);
+      });
+    } else {
+      this.employeeService.saveEmployee(this.employee).subscribe(response => {
+        const resObj: any = response;
+        if (resObj.resultCode === 'SUCCESS') {
+          setTimeout(() => {this.router.navigate(['employee/employeeList']);}, 500);
+        }
+      }, error => {
+        console.log('error');
+        console.log(error);
+      });
+    }
 
-    });
   }
 
   getDepartmentById() {

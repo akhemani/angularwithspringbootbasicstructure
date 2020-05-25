@@ -1,1 +1,44 @@
-<p>department-list works!</p>
+<p></p><p></p>
+
+<div>
+    <button pButton label="Add Department" (click)="addDepartment()"></button>
+</div>
+
+<p></p><p></p>
+
+<p-table #tt [columns]="departmentColumns" [value]="departmentList" [paginator]="true" [rows]="3">
+    <ng-template pTemplate="caption">
+        Department List
+        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+    </ng-template>
+    <ng-template pTemplate="header" let-cols>
+        <tr>
+            <th *ngFor="let column of cols" [pSortableColumn]="column.field">
+                {{column.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dept>
+        <tr style="text-align: center;">
+            <td>{{dept.id}}</td>
+            <td>{{dept.name}}</td>
+            <td>{{dept.floorNumber}}</td>
+            <td>
+                <a (click)="editDepartment(dept.id)" style="padding-right: 3%;" ><i class="pi pi-pencil"></i></a>
+                <a (click)="deleteDepartment(dept.id)" ><i class="pi pi-trash"></i></a>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+        <tr *ngIf="loading" style="text-align: center;">
+            <td colspan="3">Loading...</td>
+        </tr>
+        <tr *ngIf="!loading" style="text-align: center;">
+            <td colspan="3">No Data</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        There are total {{totalRecords}} records
+    </ng-template>
+</p-table>
