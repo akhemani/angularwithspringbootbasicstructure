@@ -36,4 +36,8 @@ export class EmployeeService {
     searchEmployee(searchedText) : Observable<Page<Employee>> {
         return this.http.get<Page<Employee>>(this.url + '/search/' + searchedText);
     }
+
+    filterEmployees(employee: Employee) : Observable<Page<Employee>> {
+        return this.http.post<Page<Employee>>(this.url + '/filterEmployees', employee);
+    }
 }

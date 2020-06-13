@@ -50,8 +50,7 @@ export class LoginComponent implements OnInit {
     this.types = [
       {label: 'Select Type', value: 0},
       {label: 'Admin', value: 1},
-      {label: 'User', value: 2},
-      {label: 'Employee', value: 3},
+      {label: 'Employee', value: 2},
     ];
 
     this.loggedIn = localStorage.getItem('type');
@@ -63,14 +62,23 @@ export class LoginComponent implements OnInit {
     this.loginDetails.username = this.loginForm.get("username").value;
     this.loginDetails.password = this.loginForm.get("password").value;
     this.loginDetails.type = this.loginForm.get("type").value;
-    if (this.loginService.login(this.loginDetails)) {
-      this.message = 'Success';
-      if (this.toRedirectUrl.toString() !== '0') {
-        this.router.navigate([this.toRedirectUrl]);
+    this.loginService.login(this.loginDetails).subscribe(response => {
+      const resObj: any = response;
+      if (resObj.resultCode === 'SUCCESS') {
+          if (resObj.message === 'Invalid Credentials') {
+            this.message = 'Invalid credentials';
+          } else {
+            this.message = 'Success';
+            this.loginService.setData(resObj.data.role.id);
+            if (this.toRedirectUrl.toString() !== '0') {
+              this.router.navigate([this.toRedirectUrl]);
+            }
+          }
       }
-    } else {
-      this.message = 'Invalid credentials';
-    }    
+    }, error => {
+      console.log('error');
+      console.log(error);
+    });    
   }
 
   get f() {

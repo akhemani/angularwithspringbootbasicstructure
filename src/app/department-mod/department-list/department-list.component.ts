@@ -36,12 +36,18 @@ export class DepartmentListComponent implements OnInit {
       this.loading = true;
       const resObj: any = response;
       if (resObj.resultCode === 'SUCCESS') {
-        if (resObj.data.content.length > 0) {
-          this.departmentList = resObj.data.content;
-          this.totalRecords = resObj.data.totalElements;
-          this.loading = false;
-        }
-        // setTimeout(() => {this.loading = false;}, 3000);
+        
+        setTimeout(() => {
+          if (resObj.data.content.length > 0) {
+            this.departmentList = resObj.data.content;
+            this.totalRecords = resObj.data.totalElements;
+            this.loading = false;
+          } else {
+            this.departmentList = [];
+            this.totalRecords = resObj.data.totalElements;
+            this.loading = false;
+          }
+        }, 500);
       }
     }, error => {
       console.log('error');
