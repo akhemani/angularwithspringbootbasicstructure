@@ -1,4 +1,52 @@
 <!-- <p>employee-list works!</p> -->
+
+<div>
+    <div class="ui-g">
+        <div class="ui-g-1" style="width: 5%; margin-top: 0.5%;">
+            Status
+        </div>
+        <div class="ui-g-5" style="margin-left: 3%;">
+            <div>
+                <p-dropdown [options]="status" [style]="{'width': '80%'}" [(ngModel)]="employee.status"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="ui-g-1" style="width: 5%; margin-top: 0.5%; margin-left: -3%;">
+            Designation
+        </div>
+        <div class="ui-g-5" style="margin-left: 6%;">
+            <p-dropdown [options]="designations" [style]="{'width': '80%'}" [(ngModel)]="employee.designation.id"></p-dropdown>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-1" style="width: 5%; margin-top: 0.5%;">
+            Department
+        </div>
+        <div class="ui-g-5" style="margin-left: 3%;">
+            <p-dropdown [options]="departments" [style]="{'width': '80%'}" [(ngModel)]="employee.department.id"></p-dropdown>
+        </div>
+
+        <div class="ui-g-1" style="width: 11%; margin-top: 0.5%; margin-left: -3%;">
+            Date of Joining
+        </div>
+        <div class="ui-g-5">
+            <input type="date" [style]="{'width': '80%'}" [(ngModel)]="employee.dateOfJoining">
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+            
+        </div>
+        <div class="ui-g-4" style="margin-left: 5%;">
+            <button pButton type="button" label="Search" class="ui-button-success" (click)="filterResult()"></button>
+            <button pButton type="button" label="Reset" class="ui-button-success" style="margin-left: 2%;" (click)="reset()"></button>
+        </div>
+        <div class="ui-g-4">
+            
+        </div>
+    </div>
+</div>
+
 <p></p><p></p>
 
 <div>
@@ -21,6 +69,7 @@
     </ng-template>
     <ng-template pTemplate="header" let-cols>
         <tr>
+            <th>#</th>
             <th  *ngFor="let column of cols" [pSortableColumn]="column.field">
                 {{column.header}}
                 <p-sortIcon [field]="column.field"></p-sortIcon>
@@ -28,8 +77,9 @@
             <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-emp>
+    <ng-template pTemplate="body" let-emp let-i="rowIndex">
         <tr style="text-align: center;">
+            <td>{{i+1}}</td>
             <td>{{emp.name}}</td>
             <td>{{emp.department.name}}</td>
             <td>{{emp.age}}</td>
@@ -45,6 +95,11 @@
         <tr *ngIf="!loading" style="text-align: center;">
             <td colspan="5">
                 No Data
+            </td>
+        </tr>
+        <tr *ngIf="loading" style="text-align: center;">
+            <td colspan="5">
+                Loading
             </td>
         </tr>
     </ng-template> 
